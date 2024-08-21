@@ -106,7 +106,7 @@ def generate_vehicle_data(device_id):
         'speed': random.uniform(10, 80),
         'direction': 'North-East',
         'make': 'Toyota',
-        'model': 'Corrola',
+        'model': 'Corolla',
         'year': 2024,
         'fuelType': 'Hybrid'
     }
@@ -146,8 +146,9 @@ def simulate_journey(producer, device_id):
         emergency_incident_data = generate_emergency_incident_data(device_id, vehicle_data['timestamp'],
                                                                    vehicle_data['location'])
 
-        if (vehicle_data['location'][0] >= DUBLIN_COORDINATES['latitude']
-                and vehicle_data['location'][1] <= DUBLIN_COORDINATES['longitude']):
+        # Corrected the logic to check if the vehicle has reached Dublin, CA
+        if (round(vehicle_data['location'][0], 4) == round(DUBLIN_COORDINATES['latitude'], 4)
+                and round(vehicle_data['location'][1], 4) == round(DUBLIN_COORDINATES['longitude'], 4)):
             print('Vehicle has reached Dublin, CA. Simulation ending...')
             break
 
