@@ -195,9 +195,6 @@ The script will continue running and processing data until manually stopped. To 
 
 ---
 
-Here’s the content formatted in README Markdown:
-
-```markdown
 # Generating AWS Access Key and Secret Key
 
 ## Step 1: Access IAM (Identity and Access Management)
@@ -284,6 +281,3 @@ The crawler will now scan your specified data source, classify the data, and cre
 ## Step 11: Verify the Crawler and Data Catalog
 - Once the crawler has finished running, you can navigate to the **Tables** section in the AWS Glue Console to view the tables and schema it has created.
 - You can also check the crawler’s logs for any errors or issues encountered during the run.
-```
-
-This Markdown format is suitable for a README file, providing clear steps with headings and bullet points for easy reference.
