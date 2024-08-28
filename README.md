@@ -1,6 +1,4 @@
-### README.md
-
-# Smart City Vehicle Journey Simulation and Real-Time Data Processing
+# Urban Mobility Data Processing and Simulation
 
 ### Background of the Project
 
@@ -9,7 +7,7 @@ This project explores the integration of Big Data, the Internet of Things (IoT),
 ## System Architecture
 
 The project's architecture is designed to be scalable, fault-tolerant, and capable of handling real-time data processing. It integrates Docker containers for deploying services like Zookeeper, Kafka, and Apache Spark in a master-worker architecture. AWS Cloud services are used for storage, data warehousing, and analytics, while IoT services facilitate data collection from various sources.
-
+![System Architecture.png](imgs/SystemArchitecture.png)
 ## Starting the Project with Docker Compose
 
 Docker Compose is used to define and manage the multi-container Docker applications necessary for this project. It orchestrates containers for Apache Airflow, Kafka, Spark, Cassandra, PostgreSQL, and other required services.
@@ -196,3 +194,90 @@ The script sets Spark's log level to `WARN` to reduce the verbosity of logs. How
 The script will continue running and processing data until manually stopped. To stop the script, you can simply interrupt the Docker container running the Spark job.
 
 ---
+
+# Generating AWS Access Key and Secret Key
+
+## Step 1: Access IAM (Identity and Access Management)
+- In the AWS Management Console, locate and click on **Services**.
+- Find and select **IAM** under the **Security, Identity, & Compliance** category or use the search bar to quickly find IAM.
+
+## Step 2: Navigate to Users
+- In the IAM dashboard, click on **Users** in the navigation pane on the left side of the console.
+
+## Step 3: Select or Create a New User
+
+### For an existing user:
+- Click on the username of the user for whom you want to create the access keys.
+
+### To create a new user:
+1. Click on the **Add user** button.
+2. Enter the user name.
+3. Select **Programmatic access** as the access type. This enables an access key ID and secret access key for the AWS API, CLI, SDK, and other development tools.
+4. Click **Next: Permissions** to set permissions for the user. You can:
+   - Add the user to a group with certain policies.
+   - Copy permissions from an existing user.
+   - Attach policies directly.
+5. Follow through the rest of the steps (Tags, Review) and click **Create user** at the end.
+
+## Step 4: Create Access Keys
+
+### If you’re on the user’s summary page (for an existing user):
+1. Click on the **Security credentials** tab.
+2. Scroll down to the **Access keys** section.
+3. Click the **Create access key** button.
+
+---
+
+# Creating AWS Glue Crawler
+
+## Step 1: Access AWS Glue
+- In the AWS Management Console, click on **Services** to open the services list.
+- Find and select **Glue** under the **Analytics** category, or use the search bar at the top to search for Glue.
+
+## Step 2: Navigate to Crawlers
+- In the AWS Glue Console, in the navigation pane on the left side, click on **Crawlers** under the **Data Catalog** section.
+
+## Step 3: Add a New Crawler
+- Click on the **Add crawler** button to start the process of creating a new crawler.
+
+## Step 4: Specify Crawler Info
+- **Crawler name**: Enter a name for your crawler.
+- **Crawler description** (optional): Provide a description for your crawler.
+- **Tags** (optional): Add any tags as needed for organizational purposes.
+- Click **Next** to proceed.
+
+## Step 5: Specify Crawler Source Type
+- Choose the type of data store. This is typically where your data is stored, such as **Amazon S3**, **JDBC**, or **DynamoDB**.
+- For **Amazon S3**, select the specified path in your bucket where the data resides.
+- Click **Next** to continue.
+
+## Step 6: Add a Data Store
+- Choose a data store (e.g., **Amazon S3**).
+- Specify the path to your data. For S3, it will be the S3 path to your data files.
+- Click **Next**.
+
+## Step 7: Choose an IAM Role
+- Select or create an IAM role that AWS Glue can use to access your data sources and targets.
+- If you need to create a new role, select **Create an IAM role**, and give it a name. This role will automatically be granted permissions to access your AWS resources.
+- Click **Next**.
+
+## Step 8: Configure Crawler’s Output
+- **Database**: Choose an existing database in the Data Catalog or create a new one where the crawler’s metadata will be stored.
+- **Prefix added to tables** (optional): If you want, specify a prefix for the names of the tables created.
+- **Configuration options** (optional): Configure additional settings as needed, such as adding classifiers, specifying exclusions for S3 paths, or configuring the crawler to crawl new folders only.
+- Click **Next**.
+
+## Step 9: Review and Finish
+- Review all the configurations you’ve made.
+- Click **Finish** to create the crawler.
+
+## Step 10: Run the Crawler
+- After creating the crawler, you’ll be redirected to the crawlers list page.
+- Select the checkbox next to your newly created crawler.
+- Click on the **Run crawler** button to start the crawling process.
+
+The crawler will now scan your specified data source, classify the data, and create metadata tables in the AWS Glue Data Catalog. Depending on the size and complexity of your data source, this process may take several minutes to complete.
+
+## Step 11: Verify the Crawler and Data Catalog
+- Once the crawler has finished running, you can navigate to the **Tables** section in the AWS Glue Console to view the tables and schema it has created.
+- You can also check the crawler’s logs for any errors or issues encountered during the run.
