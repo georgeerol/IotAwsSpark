@@ -119,7 +119,7 @@ The script will print logs indicating the successful delivery of messages to Kaf
 
 ---
 
-## Smart City Streaming with Apache Spark
+## Streaming with Apache Spark
 
 ### Overview
 
