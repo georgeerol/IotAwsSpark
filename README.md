@@ -2,15 +2,15 @@
 
 ### Background of the Project
 
-This project explores the integration of Big Data, the Internet of Things (IoT), and cloud computing to enhance urban mobility. The case study involves a driver's journey from San Francisco, CA to Dublin, CA, covering approximately 35 miles. This scenario demonstrates how real-time data collection and analysis can significantly improve the driving experience by optimizing route selection, reducing travel times, and enhancing safety. The project collects and processes data on vehicle performance, GPS tracking, weather conditions, traffic congestion, and emergency incidents in real-time.
+This project explores the integration of Big Data, the Internet of Things (IoT), and cloud computing to enhance urban mobility. The case study involves a driver's journey from San Francisco, CA, to Dublin, CA, covering approximately 35 miles. This scenario demonstrates how real-time data collection and analysis can significantly improve the driving experience by optimizing route selection, reducing travel times, and enhancing safety. The project collects and processes real-time data on vehicle performance, GPS tracking, weather conditions, traffic congestion, and emergency incidents.
 
 ## System Architecture
 
-The project's architecture is designed to be scalable, fault-tolerant, and capable of handling real-time data processing. It integrates Docker containers for deploying services like Zookeeper, Kafka, and Apache Spark in a master-worker architecture. AWS Cloud services are used for storage, data warehousing, and analytics, while IoT services facilitate data collection from various sources.
+The project's architecture is designed to be scalable, fault-tolerant, and capable of processing real-time data. A master-worker architecture, it integrates Docker containers for deploying services like Zookeeper, Kafka, and Apache Spark. AWS Cloud services are used for storage, data warehousing, and analytics, while IoT services facilitate data collection from various sources.
 ![System Architecture.png](imgs/SystemArchitecture.png)
 ## Starting the Project with Docker Compose
 
-Docker Compose is used to define and manage the multi-container Docker applications necessary for this project. It orchestrates containers for Apache Airflow, Kafka, Spark, Cassandra, PostgreSQL, and other required services.
+Docker Compose defines and manages the multi-container Docker applications necessary for this project. It orchestrates containers for Kafka and Spark.
 
 ### Prerequisites
 
@@ -55,7 +55,7 @@ Docker Compose is used to define and manage the multi-container Docker applicati
 
 ### Overview
 
-This Python script simulates the journey of a vehicle traveling from San Francisco, CA to Dublin, CA. During the journey, it generates and sends various types of data (vehicle data, GPS data, traffic camera data, weather data, and emergency incident data) to Kafka topics. The simulation stops once the vehicle reaches Dublin, CA.
+This Python script simulates a vehicle's journey from San Francisco, CA, to Dublin, CA. During the trip, it generates and sends various types of data (vehicle, GPS, traffic camera, weather, and emergency incident data) to Kafka topics. The simulation stops once the car reaches Dublin, CA.
 
 ### Features
 
@@ -63,7 +63,7 @@ This Python script simulates the journey of a vehicle traveling from San Francis
 - **GPS Data:** Generates GPS coordinates and timestamps.
 - **Traffic Camera Data:** Simulates traffic camera snapshots with location data.
 - **Weather Data:** Generates random weather conditions along the vehicle's journey.
-- **Emergency Incident Data:** Simulates emergency incidents such as accidents or fires.
+- **Emergency Incident Data:** Simulates emergencies such as accidents or fires.
 - **Kafka Integration:** Sends the generated data to specific Kafka topics.
 
 ### Requirements
@@ -77,8 +77,8 @@ This Python script simulates the journey of a vehicle traveling from San Francis
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-repo/vehicle-simulation.git
-    cd vehicle-simulation
+    git clone https://github.com/georgeerol/IotAwsSpark.git
+    cd IotAwsSpark
     ```
 
 2. Install the required Python packages:
@@ -107,15 +107,15 @@ To run the simulation, execute the `main.py` script:
 python main.py
 ```
 
-The simulation will start sending data to the configured Kafka topics. It will automatically stop when the simulated vehicle reaches Dublin, CA.
+The simulation will start sending data to the configured Kafka topics and automatically stop when the simulated vehicle reaches Dublin, CA.
 
 ### Stopping the Simulation
 
-You can stop the simulation at any time by pressing `Ctrl + C`.
+You can stop the simulation anytime by pressing `Ctrl + C.`
 
 ### Output
 
-The script will print logs indicating the successful delivery of messages to Kafka or any errors that occur during the process.
+The script will print logs indicating the successful delivery of messages to Kafka or any errors during the process.
 
 ---
 
@@ -123,12 +123,12 @@ The script will print logs indicating the successful delivery of messages to Kaf
 
 ### Overview
 
-This Python script, `spark-city.py`, is designed for real-time processing of various smart city-related data streams such as vehicle data, GPS data, traffic camera data, weather data, and emergency incidents. The data is consumed from Kafka topics, processed using Apache Spark, and then written to Amazon S3 in Parquet format.
+This Python script, `spark-city.py`, is designed for real-time processing of various city-related data streams such as vehicle data, GPS data, traffic camera data, weather data, and emergency incidents. The data is consumed from Kafka topics, processed using Apache Spark, and then written to Amazon S3 in Parquet format.
 
 ### Features
 
 - **Kafka Integration:** Consumes data from Kafka topics using Spark Streaming.
-- **Schema Definitions:** Defines the schema for each type of data (vehicle, GPS, traffic, weather, and emergency).
+- **Schema Definitions:** Defines the schema for each data type (vehicle, GPS, traffic, weather, and emergency).
 - **Data Processing:** Joins the incoming streams and writes the output to S3.
 - **Fault Tolerance:** Supports checkpointing to ensure data integrity and fault tolerance.
 
@@ -191,7 +191,7 @@ The script sets Spark's log level to `WARN` to reduce the verbosity of logs. How
 
 ### Stopping the Script
 
-The script will continue running and processing data until manually stopped. To stop the script, you can simply interrupt the Docker container running the Spark job.
+The script will continue running and processing data until manually stopped. You can interrupt the Docker container running the Spark job to stop the script.
 
 ---
 
@@ -199,7 +199,7 @@ The script will continue running and processing data until manually stopped. To 
 
 ## Step 1: Access IAM (Identity and Access Management)
 - In the AWS Management Console, locate and click on **Services**.
-- Find and select **IAM** under the **Security, Identity, & Compliance** category or use the search bar to quickly find IAM.
+- Find and select **IAM** under the **Security, Identity, & Compliance** category or use the search bar to find IAM quickly.
 
 ## Step 2: Navigate to Users
 - In the IAM dashboard, click on **Users** in the navigation pane on the left side of the console.
@@ -214,7 +214,7 @@ The script will continue running and processing data until manually stopped. To 
 2. Enter the user name.
 3. Select **Programmatic access** as the access type. This enables an access key ID and secret access key for the AWS API, CLI, SDK, and other development tools.
 4. Click **Next: Permissions** to set permissions for the user. You can:
-   - Add the user to a group with certain policies.
+   - Add the user to a group with specific policies.
    - Copy permissions from an existing user.
    - Attach policies directly.
 5. Follow through the rest of the steps (Tags, Review) and click **Create user** at the end.
@@ -238,7 +238,7 @@ The script will continue running and processing data until manually stopped. To 
 - In the AWS Glue Console, in the navigation pane on the left side, click on **Crawlers** under the **Data Catalog** section.
 
 ## Step 3: Add a New Crawler
-- Click on the **Add crawler** button to start the process of creating a new crawler.
+- Click the **Add crawler** button to create a new crawler.
 
 ## Step 4: Specify Crawler Info
 - **Crawler name**: Enter a name for your crawler.
@@ -258,13 +258,13 @@ The script will continue running and processing data until manually stopped. To 
 
 ## Step 7: Choose an IAM Role
 - Select or create an IAM role that AWS Glue can use to access your data sources and targets.
-- If you need to create a new role, select **Create an IAM role**, and give it a name. This role will automatically be granted permissions to access your AWS resources.
+- If you need to create a new role, select **Create an IAM role**, and give it a name. This role will automatically be granted permission to access your AWS resources.
 - Click **Next**.
 
 ## Step 8: Configure Crawler’s Output
-- **Database**: Choose an existing database in the Data Catalog or create a new one where the crawler’s metadata will be stored.
-- **Prefix added to tables** (optional): If you want, specify a prefix for the names of the tables created.
-- **Configuration options** (optional): Configure additional settings as needed, such as adding classifiers, specifying exclusions for S3 paths, or configuring the crawler to crawl new folders only.
+- **Database**: You can choose an existing database in the Data Catalog or create a new one where the crawler’s metadata will be stored.
+- **Prefix added to tables** (optional): You can specify a prefix for the names of the tables created.
+- **Configuration options** (optional): You can configure additional settings as needed, such as adding classifiers, specifying exclusions for S3 paths, or configuring the crawler to crawl new folders only.
 - Click **Next**.
 
 ## Step 9: Review and Finish
@@ -274,10 +274,10 @@ The script will continue running and processing data until manually stopped. To 
 ## Step 10: Run the Crawler
 - After creating the crawler, you’ll be redirected to the crawlers list page.
 - Select the checkbox next to your newly created crawler.
-- Click on the **Run crawler** button to start the crawling process.
+- Click the **Run crawler** button to start the crawling process.
 
 The crawler will now scan your specified data source, classify the data, and create metadata tables in the AWS Glue Data Catalog. Depending on the size and complexity of your data source, this process may take several minutes to complete.
 
 ## Step 11: Verify the Crawler and Data Catalog
-- Once the crawler has finished running, you can navigate to the **Tables** section in the AWS Glue Console to view the tables and schema it has created.
-- You can also check the crawler’s logs for any errors or issues encountered during the run.
+- Once the crawler has finished running, you can navigate to the **Tables** section in the AWS Glue Console to view its created tables and schema.
+- You can also check the crawler’s logs for errors or issues encountered during the run.
