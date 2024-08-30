@@ -281,3 +281,65 @@ The crawler will now scan your specified data source, classify the data, and cre
 ## Step 11: Verify the Crawler and Data Catalog
 - Once the crawler has finished running, you can navigate to the **Tables** section in the AWS Glue Console to view its created tables and schema.
 - You can also check the crawler’s logs for errors or issues encountered during the run.
+
+### Amazon S3 Data Storage for Urban Mobility Simulation
+
+The project leverages Amazon S3 as a robust and scalable storage solution to manage various types of data required for simulating urban mobility. 
+The S3 bucket, named `george-spark-streaming-data`, contains several folders that store different types of data, which are critical for the data processing and analysis tasks in this project:
+
+- **emergency_data/**: Contains data on emergency incidents, such as accidents or fires, that may impact traffic and route decisions.
+- **gps_data/**: Holds GPS coordinates and timestamps, providing real-time location tracking of the vehicle throughout the journey.
+- **traffic_data/**: Stores traffic-related information, such as traffic camera snapshots and congestion levels, to monitor and predict road conditions.
+- **vehicle_data/**: Includes data on vehicle performance metrics like speed, fuel consumption, and engine status, essential for understanding the vehicle's behavior during the journey.
+- **weather_data/**: Consists of weather condition data, such as temperature, humidity, and precipitation, which can influence route optimization and safety measures.
+
+Each of these folders in the S3 bucket represents a specific data type that is streamed into the system, processed using Apache Spark, and then stored back in the bucket in Parquet format.
+
+![System Architecture.png](imgs/S3BucketData.PNG)
+
+### AWS Glue Data Crawler for Urban Mobility Simulation
+
+The project utilizes an AWS Glue Data Crawler, named `SparkCityDataCrawler`, to automatically scan and catalog the datasets stored in the S3 bucket (`george-spark-streaming-data`). 
+This crawler is responsible for discovering the schema and metadata of the data files, enabling efficient querying and processing.
+
+- **Name:** `SparkCityDataCrawler`  
+- **IAM Role:** `AWSGlueServiceRole-SparkCity` - Allows the crawler to access data stored in Amazon S3.
+- **Database:** `sparkcity` - The Glue Data Catalog database where the discovered metadata is stored.
+
+The crawler is configured to run periodically, scanning the specified S3 paths to detect any new data or schema changes.
+
+This automated process ensures that the metadata for all datasets is up-to-date and readily available for querying through AWS services such as Glue, Athena, and Redshift Spectrum, facilitating seamless data integration and analytics.
+
+![System Architecture.png](imgs/SparkCityDataCrawler.PNG)
+
+### Querying Data with Amazon Athena
+
+Amazon Athena is used in this project to perform interactive queries on the data stored in the AWS Glue Data Catalog. The query editor in the image shows a sample SQL query executed to analyze the `emergency_data` table, which is part of the `sparkcity` database.
+
+- **Data Source:** `AwsDataCatalog` - Utilizes the AWS Glue Data Catalog as the source for querying data.
+- **Database:** `sparkcity` - Contains various tables such as `emergency_data`, `gps_data`, `traffic_data`, `vehicle_data`, and `weather_data` for analysis.
+
+The query in the image retrieves the first 10 records from the `emergency_data` table, which includes columns like `id`, `deviceid`, `incidentid`, `type`, `timestamp`, `location`, `status`, and `description`. The results provide insights into emergency incidents, such as medical emergencies, fires, accidents, and police activities, along with their status and location coordinates.
+
+- **Query Execution Time:** The query completed successfully in 411 milliseconds after a queue time of 62 milliseconds.
+- **Data Scanned:** 5.36 KB of data was scanned for this query.
+- **Output:** Displays 10 rows of data related to various emergency incidents, including the type of incident, timestamp, location, status, and a brief description.
+
+Using Athena for querying allows real-time analysis and insights from the stored data without needing a separate data warehousing solution, enabling quick decision-making and data exploration.
+
+![System Architecture.png](imgs/QueryWithAthena.PNG)
+
+
+### Amazon Redshift Serverless Configuration
+
+The project utilizes Amazon Redshift Serverless for scalable and cost-effective data warehousing to support advanced analytics on urban mobility data. 
+The Redshift Serverless workgroup, enable seamless integration with other AWS services for data processing and analysis.
+
+- **Workgroup:** `default-workgroup` - The primary workgroup created to manage resources and queries for the Redshift cluster.
+- **Status:** `Available` - Indicates that the workgroup is ready to handle queries and data operations.
+- **Namespace:** `spark-city-redshift-cluster` - Represents the Redshift Serverless cluster environment associated with the workgroup.
+
+This workgroup is configured to manage the Redshift Serverless environment, allowing efficient and dynamic scaling based on the workload demands. 
+It provides the flexibility to run complex queries on large datasets without needing to manage infrastructure, ensuring optimal performance and cost management.
+
+![System Architecture.png](imgs/RedshiftConfiguration.PNG)
