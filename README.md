@@ -2,7 +2,7 @@
 
 ### Background of the Project
 
-This project explores the integration of Big Data, the Internet of Things (IoT), and cloud computing to enhance urban mobility. The case study involves a driver's journey from San Francisco, CA, to Dublin, CA, covering approximately 35 miles. This scenario demonstrates how real-time data collection and analysis can significantly improve the driving experience by optimizing route selection, reducing travel times, and enhancing safety. The project collects and processes real-time data on vehicle performance, GPS tracking, weather conditions, traffic congestion, and emergency incidents.
+This project integrates Big Data, IoT, and cloud computing to enhance urban mobility, using a 35-mile drive from San Francisco to Dublin, CA, as a case study. It demonstrates how real-time data on vehicle performance, GPS, weather, traffic, and emergencies can optimize routes, reduce travel time, and improve safety.
 
 ## System Architecture
 
