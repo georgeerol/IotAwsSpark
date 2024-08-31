@@ -321,12 +321,6 @@ Amazon Athena is used in this project to perform interactive queries on the data
 
 The query in the image retrieves the first 10 records from the `emergency_data` table, which includes columns like `id`, `deviceid`, `incidentid`, `type`, `timestamp`, `location`, `status`, and `description`. The results provide insights into emergency incidents, such as medical emergencies, fires, accidents, and police activities, along with their status and location coordinates.
 
-- **Query Execution Time:** The query completed successfully in 411 milliseconds after a queue time of 62 milliseconds.
-- **Data Scanned:** 5.36 KB of data was scanned for this query.
-- **Output:** Displays 10 rows of data related to various emergency incidents, including the type of incident, timestamp, location, status, and a brief description.
-
-Using Athena for querying allows real-time analysis and insights from the stored data without needing a separate data warehousing solution, enabling quick decision-making and data exploration.
-
 ![System Architecture.png](imgs/QueryWithAthena.PNG)
 
 
