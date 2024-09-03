@@ -1,4 +1,4 @@
-# Urban Mobility Data Processing and Simulation
+# Driving Smart: Enhancing Urban Mobility with Kafka, Apache Spark, and AWS
 
 ### Background of the Project
 
