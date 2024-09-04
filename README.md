@@ -1,4 +1,4 @@
-# Urban Mobility Data Processing and Simulation
+# Driving Smart: Enhancing Urban Mobility with Kafka, Apache Spark, and AWS
 
 ### Background of the Project
 
@@ -337,3 +337,7 @@ This workgroup is configured to manage the Redshift Serverless environment, allo
 It provides the flexibility to run complex queries on large datasets without needing to manage infrastructure, ensuring optimal performance and cost management.
 
 ![System Architecture.png](imgs/RedshiftConfiguration.PNG)
+
+## Reference
+
+This project is based on insights from the following [YouTube video](https://www.youtube.com/watch?v=Vv_fvwF41_0&t=4s).
